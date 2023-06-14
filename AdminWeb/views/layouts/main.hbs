@@ -1,0 +1,353 @@
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/core.css"class="template-customizer-core-css" />
+    <link rel="stylesheet"href="../../assets/vendor/css/theme-default.css"class="template-customizer-theme-css"/>
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link
+      rel="stylesheet"
+      href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../../assets/vendor/libs/apex-charts/apex-charts.css"
+    />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="../../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside
+          id="layout-menu"
+          class="layout-menu menu-vertical menu bg-menu-theme"
+        >
+          <div class="app-brand demo">
+            <div class="container">
+              <div class="d-flex justify-content-center">
+                <a
+                  href="/"
+                  class="app-brand-link text-center d-flex align-items-center"
+                >
+                  <img src="/images/logo.png" alt="Logo" height="110" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-item" id="Dashboard">
+              <a href="/" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+              </a>
+            </li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Product Management</span>
+            </li>
+            {{!-- Add list category here --}}
+            <li class="menu-item">
+              <a href="cards-basic.html" class="menu-link">
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAdlJREFUSEvFluE1BUEMhe+rABWgAlSADqgAFaACVIAOqMDrABWgAypABZzvndl3dkeSmR0/Nue8Xy+bm9wkdzLTRDabCFctwHuSViRtp6RfJX1Jeh5TRC0wIKeSDiStOgCAzyXdSiKZ0ErAgFxLOi4Fyv6/k3SemDA/jYCp8kHSxkjQzv1d0qFXvQcM6GNAa20u0L9vgVvA0Pvyj0rzpKh8J6fdAqY/R0ZJ38HQwBCT7tl9Pic5MAGo1jLWhVXyjG9Jestx2JRE9QvLgb1q8S0B40ObWKV1A3xQdQ7MMHiU9YGfJP30ggN2lfrIrrMNuRF7zaoYGplkz/rAfdDO/yRRTdWfThAmnKQHVHuZdjFKwAjGTXK2EuMv9hp1GwBfSrporPgtySnDEzFHO8BpBg7yW1C56ziYwGOotuLW6LpJ9Zjhgq5+H9lhfiVdN4eLKmrXyRueqAUo3/JJbRWQFuBQQGolswU4lEyo8mSTNnSXRaTZFt3FR6Kkt1EPvf8+0uCR+NKiQ4B9jJ66miQYKNj5c4OVTh/kzXppakCpFG0wD7+aYw/9tQ6DCJyenrUee/3ATDuBqMCjH1phCHFZPvhedqWKre/oGUKQH/SL567WWoBrY4d+kwH/Av/Iah9uWyf0AAAAAElFTkSuQmCC"/>
+                  <div >Products</div>
+              </a>
+            </li>
+            <li class="menu-item" id="Category">
+              <a href="/ProductManager/category" class="menu-link">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAcFJREFUSEvtluE1Q0EQhW8qQAc6QAWoABXQASpABYkOqAAVhApQATqgA+dzdnLm7dndTOIdeT/Mr+Tt7M7OzJ17d6QV2WhFcTWowOuStuZU4ilb35a01tjzIendr+cZb0p6C5T/WtJZ8ruRdBzYsyHp0/zywHuSpoFDyBhf7FHSbmDPfvL9cW0FPpf0kh04SW0oBX51VbBttGCc/oQDdxyz7EqB/TcL7Cv4H7jTxWpp/rLUAGsG/xQYsDDnpR7jm4MRX/Zg4R63JuRB0uGC47TjL1aiTEbGblkLfulmkvZAJmRXM1jrpMVcAR7ox2VQImHs1ErtytNfcqTUcDal5zdAuy0Abi5lRsGFH5i4k4TI5AYeuGjHWlwN95bGCfnz40R2zy7oV5JAL61Hku5b4FqGQEC0CQGlNfRSBZSLi5IAsjizVsZRkSCTA0mIfV5qf6nmHC+TselxSZ0gGXq/EHNFM2YKTtPhnaxSX6kGFn6BUKbSQ4De+ex8leglKDamMlr1vf/VOOVlJdhFZf5AOb3vTEgfjz2LR3Y8/PxrEzEB5flYFt/VXspqJAKgambSWZLV6jg1zut3aVAi0W9qldO+AbNVih/Tt9HtAAAAAElFTkSuQmCC"/>
+                <div >Category</div>
+              </a>
+            </li>
+
+            <!-- Components -->
+            <li class="menu-header small text-uppercase"><span
+                class="menu-header-text"
+              >Property Management</span></li>
+            <!-- Cards -->
+            
+            <!-- User interface -->
+            <li class="menu-item">
+              <a href="/PropertyManager/Sizes" class="menu-link">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAddJREFUSEvtltE1BEEQRd9GgAgQASJABIgAESACRIAIEAEiQASIABkQAefumZpT27qnq+dnf9TP7pnpqlv9qrp6JpqTTebE1T+4RfkbST+SDlucbO1YqYHud0H43wwfAz6WdJHsEjAJhK0VvC7pJRP9S9K2pNcouRX8JGmzEJx3wEPWAj6QdF2JGpa8BfwhabkCZs1qZMsefCZpp6vTVVKvla55SjIb61nSVgKmL44k8fsgCc7M5OLBqXOiZidJAukaz2DtpXsAiO73iZxHwBYDGA5maa2/Je1KIlHv4zdhz7NgnO8K9eGY0LEcG8zDN5wqi5IeO1lzofYk3adSIwlOJaNxcLSzChyzwYG0+AMvGclPlfHNRQO9DzjxqjQoIlD8l0y19DhFjwzymuzskGlG4kP26dekYPTnSNXMT6mhaebj3Ha9MX2Wgmt19oGs03Pdm0u8r28OzLOI3DVF0vdvaafnRmZkJreC+2NkjqVZHa1bJAHGJDNixkpgOpXzWrsUamAkpm/sBPTrh24n4Ox8rRa98L4ILTWXjwOcwW/fV9EcuN2Y8X92WqtxCkAumo5aLRToXBbMARKtfgK1fAgYjyRQgjGJAWFn/naqKjMGXA0aWTA38C8NdlgfQOF6BQAAAABJRU5ErkJggg=="/>
+                <div > Sizes</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="cards-basic.html" class="menu-link">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAftJREFUSEvFluE1REEMRr+tgA5QASpABeiAClABKkAFqAAVoAJUgA6ogHP3vNmTl53MzFt77Px59pjJTTLJlxlpQWu0IK5mAa9K2pJ02zl9IOlJ0seQIFrBG5JOJfEFzEpnf7rfgF8lnXffoh8t4LMO6g15sP0/Z64kfUX0GpgI1oPDJTBH3roMZY/XwKSW+1vKnC6BvyVtl1IegYmUouEbwSOwhaba2I/uyd8PhcT97BTgCcy+lBEPfZS0LOlE0qWF+Ijx8MVs8PCbzgBfu0grBXVsHE1Q9mFnzRabB99L2nVGLbylVXHeQtMZqhzHer2YftOLKxnrxQp1+6NOeO4KbgqMMLwHIR1K8umNoqcoryst2JPMpgMtuZaU1Mxvp1hpz5m0upFd3lYTkLlAckYs+D9SPakVC/Y9bB1FeWi1lrUn6S7YSC+Px6dPtVUhe3Ye7fRpRuoUOCcgVcF30UXa/iCJbGQFBOlDddLy2kt/ornp9ZH2YfCiewTQ7zn4pp1WuarG8JGkSPC9075nUwFZOK8StHyycmCmCbJHFGks5rS3NI8tnAyQyd5rpNbHkeDbwoxUqiizNfBfnz5TkUbFlWu/oY89aoM66d2pN1yLOO1ncmGICNLY9HdMrzMAgFbf2K1g6zBO4EAak/w9njhD1izgIfbDvQsD/wJ6SnYfwWA6+gAAAABJRU5ErkJggg=="/>
+                <div > Colors</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="cards-basic.html" class="menu-link">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAdZJREFUSEvNlksuRUEQhr+7AhL2gQV4TZnYgFfCGGEBzAlzEq8VGDD12gD7IGEF5JeupE7f7nNu9x1cPbnnph9fVXXVX91jRKM3Ii7DgDeAH+C6xvha8BWwHoD63iyF14A91HjF8FKwh34H6liN523gBWAHGA8H63c6fAuqeY0nwOBvwJcL+1GY77uJNrAOnE/cnUEF0ZAxHu633AErqfsfBCyQQXTGbvTf4GcOIGMUhWcXmQZ/EHB2c0smW7SqwPJyKmH1LLANLAXwPXABvDpDDKwzZkpC7bPXW30M7Gc8PQEOXMJZfiRLLRXquGSUvbJcnr50CMVc8DxOuD54DM5BxZM0rnWAb92aVrgHS3svozr12fwBTHSAP4HJKLt9qUla5VyjSXiwRGAxKpta8KMToSRYhvhQx/AbYLXDY62x5qFQe6iuSs79ja7k8vDS5MpCc+DY82HLqeFpm8c21yYgW8ByWPgAnGcE5N01lv8vmSZ7umdfVnuZJnEalZHaaJVW59pinO1x9vqQVrVFSaVaoH8IqGloGFzfPnt1p/4hcFjzEEiVbFznWmOGJbM3V/elb6641OzcImhbHXcIVEPhiqHDgLXX5O9P9EtHTahLGcn1IwP/Aqstfx9p1NQVAAAAAElFTkSuQmCC"/>
+                <div > Brands</div>
+              </a>
+            </li>
+
+            <!-- Sales -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Sales</span>
+            </li>
+            
+            <li class="menu-item">
+              <a href="tables-basic.html" class="menu-link">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAatJREFUSEvNluExBEEQhb+LABEgAkSACBABIkAEiAARIAIyQAZEgAgQAfVV7VaNuZmdmXVVp6vuz233vOnXr7tnwpxsMidc/j3wFvBdYOephb2ajG+A/cpD74ET4K3kXwP8CGyWDgq+fwLbwPNQTA2wBy00AOtqxqt/AV4EPhpBe/eNoaxLGSuqh5HA0m2ZklYCPgYuRgKbsZRbqikrAZ8BpyOAv4CVji0v0Azcquge4Laj+RrYA2yzX1bKWKqWR2Ssor20seeAzDUBl6ZV6k6HgN3Qa6MZuFXR1lUxylLYCV7E6Ved8S5wF/l7eDyRBJJWf0cdeBi2lFL2UI1Tilah0hiWQGbWAS8amyI7aFW1StwJgsxWgNdKsfUt1dzHUroWgLj2ZKFmkr13DGQXxRDVsaKvulrlBspL910hTYmpVlxOnZhS96xUh7t5kM6hkuQyTrWSQ1+qw90s/fo2Ww44pWjbIl6R0m/vNlsO2NaID/S/GFj6L5tRoemVmaM/u3PH1DgVk9rNLoPiw651gMT+TixV3ZuDYfBBN6uMx5QyG1PaxzMFCw+bG/APw0VRH67OIJoAAAAASUVORK5CYII="/>
+                <div data-i18n="Tables">Checkouts</div>
+              </a>
+            </li>
+
+            <!-- Users -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Users</span>
+            </li>
+            
+            <li class="menu-item">
+              <a href="tables-basic.html" class="menu-link">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAWtJREFUSEvFlv8xBjEQhp+vAjqgA1SACiiBCj4qQAWoAB0ogQ6owKcDKmDem8Ts3CS3lx/m9q+bSbLPu7vJ3q5YyFYLcZkD3gVOgO1GkU/AJvrwwIJ+NALj8S/gIMI98AVw2wksN5fAnT488DVw5YBfzfqhs/cGkM8m8DdwBLwZ2D7wAmxlBHQB3wMqxdiUyvV/gv/UjyBT5ekScTewVRov3ZR61fI4kVLVfK8k1aVg+RZc5yT0J3zrwuUsmeoacOkT7wp+B9SV1FJzKY4Cm8GfIa3PARodC34aulPqLTeBFaHqqChzJgGq/zgD1WBFqu40BbXR64bvGHXV4HPgseBGnQEPPcBqkbY3exqUneFvFKw6Yg/krS8GTv6PUw2k5wSi36hSP4w/dhBIgbVHcL3N1plLlzI5c+XAXt2q1udEXOXYO2TBvQY7b44bNNlNuTbniR+vF4PlIDZ5XahaG6ZIz2ap85zUrC8G/gVdmF0fzxQnTwAAAABJRU5ErkJggg=="/>
+                <div data-i18n="Tables">Accounts</div>
+              </a>
+            </li>
+             <li class="menu-item">
+              <a href="tables-basic.html" class="menu-link">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAWRJREFUSEvtl9E1RDEQhr+tgA5QAR3QAR2gg1UBKkAFqIAO0AEVLBWgAs7n3Dj3kGSTu9lzPZiXfdjMfJmZP5PcCSPZZCQuOfAesNlwY2/ANeBvEnwF7DeEhlCHgLGTYHe1sgTwKXCSA38sAWrIJuCHrmzPgHo4KKjSwuALYPqjKuvA4xx4FKzjWhfsPlPqF8C1MTPry4xvFGzTjwt6G8s2uLmh2RjgVeC1FuxuQwnvMs6KaSPxvyK7qQX31887TufAUQSgNrZrwaXiCnGF3HZK3umOU0p0wWchcRXoL7nkb4FLxfUE2GNLrdCChXIrsNScHzS53rs+2teceaS8gXYji6onl1AzciSWWuxqre7x9z1aSgXM3I2GMaxrFdhsDTLEvEjOeo7JUscml9efZR5i+vWnYJW4VO7Xc2WAmYg3VrAq8ABe0uUf/Ks0oz1v3Ymjb6thg30ym1D2Qd+QFw812rfTJ7jzWh9q7pwjAAAAAElFTkSuQmCC"/>
+                <div data-i18n="Tables">Contacts</div>
+              </a>
+            </li>
+        
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        
+<title>Dashboard</title>
+
+<div class="layout-page">
+    <!-- Navbar -->
+
+    <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+        id="layout-navbar">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+            </a>
+        </div>
+
+        <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+            <!-- Search -->
+            <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                    <i class="bx bx-search fs-4 lh-0"></i>
+                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+                        aria-label="Search..." />
+                </div>
+            </div>
+            <!-- /Search -->
+
+            <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- Place this tag where you want the button to render. -->
+                <li class="nav-item lh-1 me-3">
+                    <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
+                        data-icon="octicon-star" data-size="large" data-show-count="true"
+                        aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+                </li>
+
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                        <div class="avatar avatar-online">
+                            <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avatar avatar-online">
+                                            <img src="../../assets/img/avatars/1.png" alt
+                                                class="w-px-40 h-auto rounded-circle" />
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="fw-semibold d-block">John Doe</span>
+                                        <small class="text-muted">Admin</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="bx bx-user me-2"></i>
+                                <span class="align-middle">My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="bx bx-cog me-2"></i>
+                                <span class="align-middle">Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <span class="d-flex align-items-center align-middle">
+                                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                                    <span class="flex-grow-1 align-middle">Billing</span>
+                                    <span
+                                        class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="auth-login-basic.html">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--/ User -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- / Navbar -->
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+
+        {{{body}}}
+        <!-- / Content -->
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                    ©
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                    , made with ❤️ by
+                    <a href="https://themeselection.com" target="_blank"
+                        class="footer-link fw-bolder">ThemeSelection</a>
+                </div>
+                <div>
+                    <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                    <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                    <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                        target="_blank" class="footer-link me-4">Documentation</a>
+
+                    <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
+                        class="footer-link me-4">Support</a>
+                </div>
+            </div>
+        </footer>
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script
+      src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"
+    ></script>
+
+    <script src="../../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../../assets/js/dashboards-analytics.js"></script>
+    <script src="../../assets/js/ui-toasts.js"></script>
+
+    {{!-- <script src="../../assets/js/ui-modals.js"></script> --}}
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

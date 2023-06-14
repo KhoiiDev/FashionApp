@@ -1,0 +1,85 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product Management / Category Management</span> /
+        Edit Category</h4>
+    <a class="btn btn-primary" href="/ProductManager/category">Back</a>
+    <!-- Basic Layout & Basic with Icons -->
+    <div class="row d-flex align-items-center justify-content-center">
+        <!-- Basic Layout -->
+        <div class="col-6">
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Edit Category</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/ProductManager/updateCategory" method="post" enctype="multipart/form-data">
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="categoryName">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="categoryName" placeholder="Name"
+                                    name="categoryName" value="{{data.categoryName}}" />
+                                <input type="hidden" name="categoryId" value="{{data.categoryId}}" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="file">Upload</label>
+                            <div class="col-sm-9">
+                                <input type="file" ref="file" class="form-control" id="file" name="file" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="URL">URL</label>
+                            <div class="col-sm-9">
+                                <input type="url" ref="file" class="form-control" id="URL" name="URL" />
+                            </div>
+                        </div>
+                        <div class="row mb-3 d-flex align-items-center justify-content-center">
+                            <input type="hidden" name="ImageOriginale" value="{{data.categoryImages}}" />
+                            <img id="imagePreview" src="{{data.categoryImages}}" alt="Preview"
+                                style="max-height: 200px; max-width: 200px;" />
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="Description">Description</label>
+                            <div class="col-sm-9">
+                                <textarea id="categoryDescription" name="categoryDescription"
+                                    class="form-control">{{data.categoryDescription}}</textarea>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const imageUpload = document.getElementById('file');
+    const imageURL = document.getElementById('imageURL');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageUpload.addEventListener('change', function () {
+        const file = this.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+            imagePreview.src = reader.result;
+            imagePreview.style.display = 'block'; // Hiển thị phần tử img
+        });
+
+        reader.readAsDataURL(file);
+    });
+
+    imageURL.addEventListener('input', function () {
+        imagePreview.src = imageURL.value;
+        imagePreview.style.display = 'block'; // Hiển thị phần tử img
+    });
+</script>
+
+
+<script>
+    $('#Category').addClass('active');
+</script>
