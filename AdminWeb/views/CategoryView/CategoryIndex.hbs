@@ -262,30 +262,24 @@
             $('#confirm-delete').data('id', id);
         });
         // Xử lý sự kiện click nút Yes trong modal xác nhận xóa
-        $('.modal-footer button.delete-button').click(function () {
+        $('#confirm-delete').click(function () {
             const id = $(this).data('id');
 
-            // Lấy ID từ data-id của nút Yes
-            const response = $.ajax({
+            const deleteResponse = $.ajax({
                 url: '/ProductManager/deleteCategory/' + id,
                 // URL xử lý xóa
-                type: 'POST',
-            });
-
-            alert(response.info);
+                type: 'POST'
+            })
+                .done(function () {
+                    $('#trow_' + id).hide();
+                    flashMessage("Success", "Delete category Successfully");
+                })
+                .fail(function () {
+                    flashMessage("Danger", "Delete category failed");
+                });
             $('#modalDelete').modal('hide');
-            $('#trow_' + id).hide();
-            flashMessage("Success", "Delete category Successfully");
-            if (response.info) {
-                // Xóa thành công, ẩn phần tử
-                $('#modalDelete').modal('hide');
-                $('#trow_' + id).hide();
-                flashMessage("Success", "Delete category Successfully");
-            } else {
-                // Lỗi xảy ra, hiển thị thông báo lỗi
-                flashMessage("Danger", "Delete category failed");
-            }
-        });
+        })
+        return false;
     });
     //////////////////// Edit a category //////////////////////
 
