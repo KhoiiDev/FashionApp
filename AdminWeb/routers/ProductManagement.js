@@ -22,7 +22,6 @@ router.post("/addCategory", upload.single('file'), CategoriesController.addCateg
 router.post("/deleteCategory/:id", CategoriesController.deleteCategory);
 
 // feature update a category
-// router.get("/updateCategory/:id", CategoriesController.getFormUpdateCategory);
 router.post("/updateCategory", upload.single('editFile'), CategoriesController.updateCategory);
 
 

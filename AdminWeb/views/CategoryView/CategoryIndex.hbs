@@ -15,7 +15,8 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
 
-            <button class="btn btn-primary add-button" data-bs-toggle="modal" data-bs-target="#modalAddCategory">New
+            <button onclick="AddNewCategory()" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#modalAddCategory">New
                 Category</button>
             <!-- Modal add new category category-->
             <form id="modalFormAdd" action="/ProductManager/addCategory" method="post" enctype="multipart/form-data">
@@ -65,7 +66,7 @@
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                     Close
                                 </button>
-                                <button type="submit" class="btn btn-primary ">Save</button>
+                                <button class="btn btn-primary ">Save</button>
                             </div>
                         </div>
                     </div>
@@ -79,7 +80,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">New Category</h5>
+                                <h5 class="modal-title" id="modalCenterTitle">Edit Category</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -122,7 +123,7 @@
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                     Close
                                 </button>
-                                <button type="submit" class="btn btn-primary ">Save</button>
+                                <button class="btn btn-primary " id="confirm-edit">Save</button>
                             </div>
                         </div>
                     </div>
@@ -221,16 +222,17 @@
                                             data-id="{{this.categoryId}}" data-name="{{this.categoryName}}"
                                             data-img="{{this.categoryImages}}"
                                             data-description="{{this.categoryDescription}}"
-                                            data-bs-target="#modalEditCategory" data-bs-toggle="modal">
+                                            data-bs-target="#modalEditCategory" data-bs-toggle="modal"
+                                            onclick="EditCategory(this)">
                                             <i class="bx bx-edit-alt me-1"></i> Edit
                                         </button>
                                     </div>
 
                                     <div class="col">
                                         <!-- Button delete -->
-                                        <button type="button" class="btn btn-link delete-button" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-link " data-bs-toggle="modal"
                                             data-bs-target="#modalDelete" data-id="{{this.categoryId}}"
-                                            data-name="{{this.categoryName}}">
+                                            data-name="{{this.categoryName}}" onclick="DeleteCategory(this)">
                                             <i class="bx bx-trash me-1"></i> Delete
                                         </button>
                                     </div>
@@ -246,136 +248,95 @@
 </div>
 
 
-<script>
-    $('#Category').addClass('active');
-</script>
 
 <script>
-    $(document).ready(function () {
-        //////////////////// Delete a category ////////////////////
-        $('.delete-button').click(function () {
-            const name = $(this).data('name');
-            const id = $(this).data('id');
 
+    ////////////////////////Delete category /////////////////////////////////
+    let isSubmitting = false;
+
+    function DeleteCategory(element) {
+        const id = $(element).data('id');
+        const name = $(element).data('name');
+
+        if (!isSubmitting) {
             $('#modalDelete').modal('show'); // Hiển thị modal xác nhận xóa
             $('#DeleteCategoryName').text(name);
             $('#confirm-delete').data('id', id);
-        });
+            isSubmitting = true;
+        }
+
         // Xử lý sự kiện click nút Yes trong modal xác nhận xóa
+
         $('#confirm-delete').click(function () {
-            const id = $(this).data('id');
+            if (isSubmitting) {
+                isSubmitting = false;
+                handleDeleteConfirmation();
 
-            const deleteResponse = $.ajax({
-                url: '/ProductManager/deleteCategory/' + id,
-                // URL xử lý xóa
-                type: 'POST'
-            })
-                .done(function () {
-                    $('#trow_' + id).hide();
-                    flashMessage("Success", "Delete category Successfully");
-                })
-                .fail(function () {
-                    flashMessage("Danger", "Delete category failed");
-                });
-            $('#modalDelete').modal('hide');
-        })
-        return false;
-    });
-    //////////////////// Edit a category //////////////////////
-
-
-    //////////////////// Add category ////////////////////
-    $(document).ready(function () {
-        const form = $('#modalFormAdd');
-        const nameInput = $('#categoryName');
-        const fileInput = $('#file');
-        const urlInput = $('#imageURL');
-        const descriptionInput = $('#categoryDescription');
-        const errorName = $('#errorName');
-        const errorImage = $('#errorImage');
-        const errorDescription = $('#errorDescription');
-
-        const imagePreview = $('#imagePreview'); // Phần tử img hiển thị hình ảnh
-
-        ShowImage(fileInput, urlInput, imagePreview);
-
-        form.submit(async function (event) {
-            event.preventDefault();
-            try {
-                if (validateForm(nameInput, fileInput, urlInput, descriptionInput, errorName, errorImage, errorDescription)) {
-                    await addCategory(errorName);
-                }
-            } catch (error) {
-                flashMessage("Danger", "Thêm danh mục mới thất bại !");
             }
         });
-    });
 
+        // Xử lý sự kiện nhấn Enter trong modal xác nhận xóa
+        $(document).on('keydown', function (e) {
+            if (e.which === 13 && $('#confirm-delete').is(':visible')) {
+                if (isSubmitting) {
+                    isSubmitting = false;
+                    handleDeleteConfirmation();
+                }
+            }
+        });
+    }
 
+    function handleDeleteConfirmation() {
+        const id = $('#confirm-delete').data('id');
 
-    ////////////////////////////////Các funtion ////////////////////////////
+        const deleteResponse = $.ajax({
+            url: '/ProductManager/deleteCategory/' + id,
+            // URL xử lý xóa
+            type: 'POST'
+        })
+            .done(function () {
+                $('#trow_' + id).hide();
+                flashMessage("Success", "Delete category Successfully");
+            })
+            .fail(function () {
+                flashMessage("Danger", "Delete category failed");
+            })
+            .always(function () {
+                isSubmitting = false; // Đánh dấu form đã xử lý xong
+                $('#modalDelete').modal('hide');
+            });
+    }
+</script>
 
-    function checkInput(element) {
-        const inputElement = $(element);
-        return !!inputElement.val();
+<script>
+    // Hiển thị các hình ảnh khi người dùng upload hoặc nhập url.
+    function ShowImage(uploadInput, urlInput, previewImage) {
+        // Bắt sự kiện khi người dùng chọn tập tin từ máy tính của họ
+        uploadInput.on('change', function () {
+            const file = this.files[0]; // Lấy tập tin đầu tiên trong danh sách đã chọn
+            const reader = new FileReader(); // Tạo đối tượng FileReader để đọc tệp
+
+            // Bắt sự kiện khi tệp được đọc thành công
+            reader.addEventListener('load', function () {
+                previewImage.attr('src', reader.result); // Gán đường dẫn của ảnh được đọc vào phần tử img
+                previewImage.css('display', 'block'); // Hiển thị phần tử img
+            });
+
+            // Đọc tệp dưới dạng URL dữ liệu
+            reader.readAsDataURL(file);
+        });
+
+        // Bắt sự kiện khi người dùng nhập URL cho hình ảnh
+        urlInput.on('input', function () {
+            previewImage.attr('src', urlInput.val()); // Gán đường dẫn hình ảnh nhập vào phần tử img
+            previewImage.css('display', 'block'); // Hiển thị phần tử img
+        });
     }
 
     function checkUpload(element) {
         const fileInput = $(element);
         return !!fileInput.val();
     }
-
-    async function editCategory(id) {
-        const form = $('#modalFormEdit');
-        const category = new FormData();
-        category.append('categoryId', id);
-
-        try {
-            await $.ajax({
-                type: 'POST',
-                url: '/ProductManager/updateCategory',
-                data: category,
-                dataType: 'json',
-                contentType: false,
-                processData: false,
-            });
-            $('#modalEditCategory').modal('hide'); // Hide the modal form
-            flashMessage("Success", "Cập nhật danh mục thành công !");
-            form.reset();
-        } catch (error) {
-            flashMessage("Danger", "Cập nhật danh mục thất bại !");
-        }
-
-    }
-
-    // Hàm thêm mới vào firebase
-    async function addCategory(errorName) {
-        const form = $('form');
-        try {
-            const formData = new FormData(form[0]);
-            const response = await $.ajax({
-                type: 'POST',
-                url: '/ProductManager/addCategory',
-                data: formData,
-                dataType: 'json',
-                contentType: false,
-                processData: false,
-            });
-
-            if (response.exists) {
-                errorName.text('Tên danh mục đã tồn tại');
-            } else {
-                $('#modalAddCategory').modal('hide'); // Hide the modal form
-                flashMessage("Success", "Thêm danh mục mới thành công !");
-                addTableRow(response.categoryId, response.categoryName, response.categoryDescription, response.categoryImages, response.LastModified); // Check the response object in the console
-                reloadImage(document.getElementById(`img_${response.categoryId}`));
-                form[0].reset();
-            }
-        } catch (error) {
-            flashMessage("Danger", "Thêm danh mục mới thất bại !");
-        }
-    }
-
 
     // function hiển thị flash message bên góc phải màn hình.
     function flashMessage(type, message) {
@@ -391,12 +352,7 @@
         $('body').append(html);
         setTimeout(function () {
             $('.flash-message').remove();
-        }, 3000);
-    }
-
-    // Hàm reload ảnh
-    function reloadImage(imgElement) {
-        imgElement.setAttribute('src', imgElement.getAttribute('src'));
+        }, 1500);
     }
 
     // Hàm kiểm tra form
@@ -435,129 +391,220 @@
         return isValid;
     }
 
-    // Hàm thêm một dòng mới vào bảng
-    function addTableRow(categoryId, categoryName, categoryDescription, categoryImages, LastModified) {
+    // Hàm thêm một dòng mới hoặc cập nhật một hàng mới vào bảng
+    function tableRow(categoryId, categoryName, categoryDescription, categoryImages, LastModified) {
         const htmlRow = `
-            <tr id="trow_${categoryId}">
-                <td>
-                    <i class="fab fa-angular fa-lg text-Danger me-3"></i>
-                    <strong>${categoryName}</strong>
-                </td>
-                <td><img id="img_${categoryId}"  src="${categoryImages}" alt="" height="50"></td>
-                <td>
-                    <div class="overflow-hidden" style="max-width: 200px;">
-                        <p class="text-truncate">${categoryDescription}</p>
-                    </div>
-                </td>
-                <td>
-                    ${LastModified}
-                </td>
-                <td style="max-width: 80px;">
-                    <div class="row">
-                        <div class="col">
-                            <!-- Button edit -->
-                            <button type="submit" class="btn btn-link" data-bs-toggle="modal"
-                                data-bs-target="#modalEdit_${categoryId}">
-                                <i class='bx bx-detail me-1'></i> Detail
-                            </button>
-                            <!-- Modal -->
-
-                            <div class="modal fade" id="modalEdit_${categoryId}" tabindex="-1"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalCenterTitle"> Detail</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h4>${categoryName}</h4>
-                                            <img src="${categoryImages}" alt="Picture" height="150"
-                                                class="pb-4">
-
-                                            <h6 class="text-primary">Description:</h6>
-                                            <p>${categoryDescription}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">Close
-                                            </button>
-                                        </div>
+        <tr id="trow_${categoryId}">
+            <td>
+                <i class="fab fa-angular fa-lg text-Danger me-3"></i>
+                <strong>${categoryName}</strong>
+            </td>
+            <td><img id="img_${categoryId}" src="${categoryImages}" alt="" height="50"></td>
+            <td>
+                <div class="overflow-hidden" style="max-width: 200px;">
+                    <p class="text-truncate">${categoryDescription}</p>
+                </div>
+            </td>
+            <td>
+                ${LastModified}
+            </td>
+            <td style="max-width: 80px;">
+                <div class="row">
+                    <div class="col">
+                        <!-- Button edit -->
+                        <button type="submit" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalEdit_${categoryId}">
+                            <i class='bx bx-detail me-1'></i> Detail
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalEdit_${categoryId}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalCenterTitle"> Detail</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <!-- Button edit -->
-                            <a class="btn btn-link"
-                                href="/ProductManager/updateCategory/${categoryId}">
-                                <i class="bx bx-edit-alt me-1"></i> Edit
-                            </a>
-                        </div>
-                        <div class="col">
-
-                            <!-- Button delete -->
-                            <button type="button" class="btn btn-link delete-button"
-                                data-id="${categoryId}">
-                                <i class="bx bx-trash me-1"></i> Delete
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="modalDelete_${categoryId}" tabindex="-1"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalCenterTitle">Delete
-                                                Confirmation</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h5 class="text-muted fw-light">Are you sure you want to delete
-                                                the <b>${categoryName}</b> category</h5>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">No</button>
-                                            <button type="button" class="btn btn-primary delete-button"
-                                                data-id="${categoryId}">Yes</button>
-                                        </div>
+                                    <div class="modal-body">
+                                        <h4>${categoryName}</h4>
+                                        <img src="${categoryImages}" alt="Picture" height="150" class="pb-4">
+                                        <h6 class="text-primary">Description:</h6>
+                                        <p>${categoryDescription}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </td>
-            </tr>`;
-        // Thêm dòng mới vào bảng bằng jQuery
-        $('#myTable tbody').prepend(htmlRow);
+                    <div class="col">
+                        <!-- Button Edit -->
+                        <button  onclick="EditCategory(this)" type="button" class="btn btn-link edit-button" data-id="${categoryId}" data-name="${categoryName}" data-img="${categoryImages}" data-description="${categoryDescription}" data-bs-target="#modalEditCategory" data-bs-toggle="modal">
+                            <i class="bx bx-edit-alt me-1"></i> Edit
+                        </button>
+                    </div>
+                    <div class="col">
+                        <!-- Button delete -->
+                        <button onclick="DeleteCategory(this)" type="button" class="btn btn-link delete-button" data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="${categoryId}" data-name="${categoryName}">
+                            <i class="bx bx-trash me-1"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>`;
+
+        return htmlRow;
+
     }
 
 
-    // Hiển thị các hình ảnh khi người dùng upload hoặc nhập url.
-    function ShowImage(uploadInput, urlInput, previewImage) {
-        // Bắt sự kiện khi người dùng chọn tập tin từ máy tính của họ
-        uploadInput.on('change', function () {
-            const file = this.files[0]; // Lấy tập tin đầu tiên trong danh sách đã chọn
-            const reader = new FileReader(); // Tạo đối tượng FileReader để đọc tệp
+    //////////////////// Add category ////////////////////
+    function AddNewCategory() {
+        $(document).ready(function () {
+            const form = $('#modalFormAdd');
+            const nameInput = $('#categoryName');
+            const fileInput = $('#file');
+            const urlInput = $('#imageURL');
+            const descriptionInput = $('#categoryDescription');
+            const errorName = $('#errorName');
+            const errorImage = $('#errorImage');
+            const errorDescription = $('#errorDescription');
 
-            // Bắt sự kiện khi tệp được đọc thành công
-            reader.addEventListener('load', function () {
-                previewImage.attr('src', reader.result); // Gán đường dẫn của ảnh được đọc vào phần tử img
-                previewImage.css('display', 'block'); // Hiển thị phần tử img
+            const imagePreview = $('#imagePreview'); // Phần tử img hiển thị hình ảnh
+
+            ShowImage(fileInput, urlInput, imagePreview);
+
+            let isSubmitting = false;
+
+            form.submit(async function (event) {
+                event.preventDefault();
+                if (isSubmitting) {
+                    return;
+                }
+                try {
+                    if (validateForm(nameInput, fileInput, urlInput, descriptionInput, errorName, errorImage, errorDescription)) {
+                        isSubmitting = true; // Đánh dấu form đã được submit
+                        const form = $('form');
+                        const formData = new FormData(form[0]);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/ProductManager/addCategory',
+                            data: formData,
+                            dataType: 'json',
+                            contentType: false,
+                            processData: false,
+                        })
+                            .done(function (response) {
+                                if (response.exists) {
+                                    errorName.text('Tên danh mục đã tồn tại');
+                                } else {
+                                    $('#modalAddCategory').modal('hide'); // Hide the modal form
+
+                                    const htmlRow = tableRow(response.categoryId, response.categoryName, response.categoryDescription, response.categoryImages, response.LastModified); // Check the response object in the console
+                                    // Thêm dòng mới vào bảng bằng jQuery
+                                    $('#myTable tbody').prepend(htmlRow);
+
+                                }
+                            })
+                            .fail(function () {
+                                flashMessage("Danger", "Thêm danh mục mới thất bại function");
+                            })
+                            .always(function () {
+                                form[0].reset();
+                                flashMessage("Success", "Thêm danh mục mới thành công !");
+                                form.off('submit'); // Xóa sự kiện submit trên form
+                                isSubmitting = false; // Đánh dấu form đã xử lý xong
+                            });
+                    }
+                } catch (error) {
+                    flashMessage("Danger", "Thêm danh mục mới thất bại !");
+                }
             });
-
-            // Đọc tệp dưới dạng URL dữ liệu
-            reader.readAsDataURL(file);
-        });
-
-        // Bắt sự kiện khi người dùng nhập URL cho hình ảnh
-        urlInput.on('input', function () {
-            previewImage.attr('src', urlInput.val()); // Gán đường dẫn hình ảnh nhập vào phần tử img
-            previewImage.css('display', 'block'); // Hiển thị phần tử img
         });
     }
 
+
+    //////////////////// Edit a category //////////////////////
+    function EditCategory(element) {
+        const editForm = $('#modalFormEdit');
+        const editCategoryName = $('#editCategoryName');
+        const editFile = $('#editFile');
+        const editImageURL = $('#editImageURL');
+        const editCategoryDescription = $('#editCategoryDescription');
+        const editErrorName = $('#editErrorName');
+        const editErrorImage = $('#editErrorImage');
+        const editErrorDescription = $('#editErrorDescription');
+        const imagePreview = $('#editImagePreview'); // Phần tử img hiển thị hình ảnh
+
+        let id, name, img, description;
+
+        ShowImage(editFile, editImageURL, imagePreview);
+
+        id = $(element).data('id');
+        name = $(element).data('name');
+        img = $(element).data('img');
+        description = $(element).data('description');
+
+        editCategoryName.val(name);
+        editCategoryDescription.val(description);
+        editImageURL.val(img);
+        imagePreview.attr('src', img); // Gán đường dẫn hình ảnh nhập vào phần tử img
+        imagePreview.css('display', 'block'); // Hiển thị phần tử img
+
+        let isSubmitting = false;
+
+        editForm.submit(async function (event) {
+            event.preventDefault();
+            if (isSubmitting) {
+                return;
+            }
+            try {
+                if (!(editCategoryName.val() === name) || !(editImageURL.val() === img) || !(editCategoryDescription.val() === description) || checkUpload(editFile)) {
+                    if (validateForm(editCategoryName, editFile, editImageURL, editCategoryDescription, editErrorName, editErrorImage, editErrorDescription)) {
+                        isSubmitting = true; // Đánh dấu form đã được submit
+                        const form = editForm[0];
+                        const formData = new FormData(form);
+                        formData.append("categoryID", id);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/ProductManager/updateCategory',
+                            data: formData,
+                            dataType: 'json',
+                            contentType: false,
+                            processData: false,
+                        })
+                            .done(function (categoryObj) {
+                                flashMessage("Success", "Cập nhật danh mục mới thành công !");
+                                const htmlRow = tableRow(categoryObj.categoryId, categoryObj.categoryName, categoryObj.categoryDescription, categoryObj.categoryImages, categoryObj.LastModified); // Check the response object in the console
+                                // Thêm dòng mới vào bảng bằng jQuery
+                                $(`#trow_${categoryObj.categoryId}`).replaceWith(htmlRow);
+
+
+                            })
+
+                            .fail(function () {
+                                flashMessage("Danger", "Cập nhật danh mục mới thất bại !");
+
+                            })
+                            .always(function () {
+                                isSubmitting = false; // Đánh dấu form đã xử lý xong
+                                form.reset();
+                                editForm.modal('hide'); // Hide the modal form
+                                editForm.off('submit'); // Xóa sự kiện submit trên form
+                            });
+                    }
+                }
+                else {
+                    flashMessage("Warning", "Chưa cập nhập danh mục !");
+                }
+                $('#modalEditCategory').modal('hide'); // Hide the modal form
+            } catch (error) {
+                flashMessage("Danger", "Cập nhật danh mục thất bại!");
+            }
+        });
+    }
+
+</script>
+
+<script>
+    $('#Category').addClass('active');
 </script>
