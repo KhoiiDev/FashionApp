@@ -2,3 +2,7 @@
 dist/
 .vscode
 node_modules
+.xls
+.xlsx
+.jpg
+.png

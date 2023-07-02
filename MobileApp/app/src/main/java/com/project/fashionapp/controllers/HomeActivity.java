@@ -80,20 +80,6 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setCategory(){
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("CategoryData");
-
-        String categoryId = databaseRef.push().getKey();
-        List<String> listImage = new ArrayList<>();
-        listImage.add("https://storage.googleapis.com/fashionappdatabase.appspot.com/Category/1685175916934-shorts.png?GoogleAccessId=firebase-adminsdk-3z6kz%40fashionappdatabase.iam.gserviceaccount.com&Expires=1742144400&Signature=kdIl4hvhyJyyZpHV9kvYS%2FKA3ZfAL3eEH2NWLarhcpaxzZ1ig1cGukF65NUCVGWhUr2CklKLp1C9zKF%2F7XLJn9aB2v9pMjEI7zaPN5VMf28%2FkbcDjSaCUqCuFQbfOMOppN5aGwO8d3xCCXdLeDKP58EOMoTkb8hvasDWFtKNSoZTaEj1GIB8w4h0csOEkYdn4sSuvGOef%2FgWG%2B%2BkqylQWrp%2Fhk1zuPR2%2BgN%2BUKs82JYnjMWvlr5t6a5IGPDYzR7BYfzEh%2BWAwohkNYFt9GzggbHb43oemq3FnNCByBvA6e4UAQQEyhlfYTig1p%2BGiuUFOBjv4uWRfpu7z7FZqgx%2BWA%3D%3D");
-        Category categoryAdd = new Category(categoryId, "Shorts", listImage , "Shorts", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
-        listCategory.add(categoryAdd);
-        categoryAdapter.notifyDataSetChanged();
-
-        databaseRef.child(categoryId).setValue(categoryAdd);
-    }
-
     public void getDataCategories() {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("CategoryData");
 

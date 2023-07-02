@@ -3,6 +3,8 @@ const dotenv = require("dotenv").config(); // config dot env
 const hbs = require("express-handlebars");
 const path = require("path");
 const bodyParser = require("body-parser");
+const http = require('http');
+
 
 const session = require('express-session');
 const flash = require("connect-flash");
@@ -37,7 +39,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 // 
 app.use(session({
     secret: 'webadminfashionapp',
-    cookie: {maxAge: 60000},
+    cookie: { maxAge: 60000 },
     saveUninitialized: false,
     resave: false
 }));
@@ -45,11 +47,12 @@ app.use(session({
 app.use(flash());
 
 //require routers
-const ProductManager = require("./routers/ProductManagement");
-
+const CategoryManager = require("./routers/CategoryManagement");
+const BrandsManager = require("./routers/BrandsManagement");
 
 //Routers
-app.use("/ProductManager", ProductManager);
+app.use("/CategoryManagement", CategoryManager);
+app.use("/BrandsManagement", BrandsManager);
 
 
 app.get('/', (req, res) => {
